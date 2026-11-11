@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation Tabs */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: #1e3c72;
+        }
+
+        .tab-btn.active {
+            color: #1e3c72;
+            border-bottom-color: #1e3c72;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .portfolio-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .portfolio-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Profile Header Card */
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .profile-img-cover {
+            width: 280px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-details h2 {
+            font-size: 1.8rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-details h3 {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            padding: 0.8rem;
+            border-radius: 6px;
+            border-left: 4px solid #1e3c72;
+        }
+
+        /* Content Sections */
+        .content-block {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .content-block h3 {
+            font-size: 1.4rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 0.5rem;
+        }
+
+        .quote-box {
+            background: #eef5ff;
+            border-left: 4px solid #2a5298;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        /* Image Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .gallery-item p {
+            padding: 0.8rem;
+            font-size: 0.9rem;
+            text-align: center;
+            background: #fafafa;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-img-cover {
+                width: 100%;
+                max-width: 300px;
+            }
+            .info-item {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>แฟ้มสะสมผลงาน (PORTFOLIO)</h1>
+        <p>โรงเรียนทุ่งใหญ่เฉลิมราชอนุสรณ์ รัชมังคลาภิเษก</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'nantita')">นันธิตา หิรัญรัตน์ (ดรีม)</button>
+        <button class="tab-btn" onclick="openTab(event, 'kweisara')">กวีสรา วิไล (พลอย)</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ==================== PORTFOLIO 1: นันธิตา หิรัญรัตน์ ==================== -->
+        <section id="nantita" class="portfolio-section active">
+            
+            <div class="profile-card">
+                <img src="image_6d3d81.jpg" alt="ปก นันธิตา หิรัญรัตน์" class="profile-img-cover">
+                <div class="profile-details">
+                    <h2>นางสาว นันธิตา หิรัญรัตน์ (ดรีม)</h2>
+                    <h3>สาขาวิชาภาษาไทย | คณะมนุษยศาสตร์และสังคมศาสตร์ มหาวิทยาลัยราชภัฏนครศรีธรรมราช</h3>
+                    
+                    <div class="info-grid">
+                        <div class="info-item"><strong>วันเกิด:</strong> 17 พฤษภาคม 2551</div>
+                        <div class="info-item"><strong>เชื้อชาติ/ศาสนา:</strong> ไทย / พุทธ</div>
+                        <div class="info-item"><strong>ความใฝ่ฝัน:</strong> คุณครูประถมศึกษา</div>
+                        <div class="info-item"><strong>ความสามารถพิเศษ:</strong> ร้องเพลง, เต้น, ประดิษฐ์งาน, เล่นกีฬา</div>
+                        <div class="info-item"><strong>โทรศัพท์:</strong> 0656182510</div>
+                        <div class="info-item"><strong>อีเมล:</strong> Nantidanun10@gmail.com</div>
+                    </div>
+
+                    <div class="quote-box">
+                        "ไม่มีความพยายามไหนไร้ความหมายถ้าเราไม่หยุดเดิน"
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>เหตุผลที่อยากเข้าศึกษาต่อ</h3>
+                <p>
+                    ดิฉันมีความสนใจในภาษาไทย และมองว่าภาษาไทยเป็นสิ่งสำคัญในการสื่อสารและการใช้ชีวิต ดิฉันอยากเรียนรู้เกี่ยวกับภาษาไทยให้มากขึ้น ทั้งด้านการอ่าน การเขียน หลักภาษา วรรณคดีไทย และการใช้ภาษาไทยให้ถูกต้องเหมาะสม
+                </p>
+                <br>
+                <p>
+                    การเลือกเรียนคณะมนุษยศาสตร์และสังคมศาสตร์ ช่วยให้เราเข้าใจภาษา ผู้คน และสังคมรอบตัวมากยิ่งขึ้น สามารถนำความรู้ไปใช้ประโยชน์ได้หลากหลายด้าน ทั้งการสื่อสาร การถ่ายทอดความรู้ และการทำงานในอนาคต
+                </p>
+            </div>
+
+            <div class="content-block">
+                <h3>ประวัติการศึกษา (Education)</h3>
+                <ul>
+                    <li><strong>ระดับประถมศึกษา:</strong> โรงเรียนคลองหมื่นเพชรอุสรณ์ ค่ายวชิราลงกรณ์อุปถัมภ์ (บ้านกับควาย)</li>
+                    <li><strong>ระดับมัธยมศึกษาตอนต้น:</strong> โรงเรียนทุ่งใหญ่เฉลิมราชอนุสรณ์ รัชมังคลาภิเษก</li>
+                    <li><strong>ระดับมัธยมศึกษาตอนปลาย:</strong> โรงเรียนทุ่งใหญ่เฉลิมราชอนุสรณ์ รัชมังคลาภิเษก</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>รูปภาพเอกสารและกิจกรรมจริง (Original Files)</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="image_6d3d81.jpg" alt="หน้าปก">
+                        <p>หน้าปก Portfolio</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="image_fe5980.jpg" alt="เหตุผลที่อยากเข้าศึกษาต่อ">
+                        <p>เหตุผลที่อยากเข้าศึกษาต่อ</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="image_e5a44f.jpg" alt="ประวัติส่วนตัว">
+                        <p>ประวัติส่วนตัว & การศึกษา</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="image_d5e924.jpg" alt="กิจกรรมที่ภาคภูมิใจ">
+                        <p>กิจกรรมที่ภาคภูมิใจ</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==================== PORTFOLIO 2: กวีสรา วิไล ==================== -->
+        <section id="kweisara" class="portfolio-section">
+            
+            <div class="profile-card">
+                <img src="image_04f265.jpg" alt="ปก กวีสรา วิไล" class="profile-img-cover">
+                <div class="profile-details">
+                    <h2>นางสาว กวีสรา วิไล (พลอย)</h2>
+                    <h3>สาขาวิชาคณิตศาสตร์ | คณะครุศาสตร์ มหาวิทยาลัยราชภัฏนครศรีธรรมราช</h3>
+                    
+                    <div class="info-grid">
+                        <div class="info-item"><strong>วันเกิด:</strong> 13 พฤษภาคม 2552 (อายุ 17 ปี)</div>
+                        <div class="info-item"><strong>แผนการเรียน:</strong> ศิลป์-คำนวณ</div>
+                        <div class="info-item"><strong>เชื้อชาติ/สัญชาติ/ศาสนา:</strong> ไทย / ไทย / พุทธ</div>
+                        <div class="info-item"><strong>วิชาที่ชอบ:</strong> วิชาคณิตศาสตร์</div>
+                        <div class="info-item"><strong>โทรศัพท์:</strong> 098-083-5707</div>
+                        <div class="info-item"><strong>อีเมล:</strong> kwisra.phlxy2552@gmail.com</div>
+                    </div>
+
+                    <div class="quote-box">
+                        "วิชาชีพครูไม่ใช่เพียงผู้ถ่ายทอดความรู้ แต่ยังเป็นผู้ปลูกฝังคุณธรรม ทักษะชีวิต และเป็นกำลังสำคัญในการพัฒนาเยาวชน"
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>ตำแหน่งและประสบการณ์ทำงาน / ความสามารถพิเศษ</h3>
+                <p><strong>ตำแหน่งและประสบการณ์:</strong></p>
+                <ul>
+                    <li>ผู้ช่วยเลขานุการของสภานักเรียน ประจำปีการศึกษา 2568</li>
+                    <li>คณะกรรมการฝ่ายจัดหาทุนในชมรม TO BE NUMBER ONE ประจำปีการศึกษา 2568</li>
+                    <li>ฝึกประสบการณ์วิชาชีพครูที่โรงเรียนวัดควนกอ พ.ศ. 2568</li>
+                </ul>
+                <br>
+                <p><strong>ความสามารถพิเศษ:</strong></p>
+                <ul>
+                    <li>ถ่ายทอดความรู้และอธิบายเนื้อหาให้ผู้อื่นเข้าใจได้ง่าย</li>
+                    <li>ทักษะการสื่อสารและการนำเสนอหน้าชั้นเรียน</li>
+                    <li>ทักษะการจดบันทึกและสรุปประเด็นสำคัญ</li>
+                    <li>ทำงานร่วมกับผู้อื่นและประสานงานได้ดี</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h3>เหตุผลที่สมัครเข้าเรียนต่อ</h3>
+                <p>
+                    ดิฉันมีความใฝ่ฝันที่จะประกอบวิชาชีพครู โดยเฉพาะครูสาขาวิชาคณิตศาสตร์ เนื่องจากมีความชื่นชอบในการอธิบาย การถ่ายทอดความรู้ และการได้ช่วยให้ผู้อื่นเกิดความเข้าใจในบทเรียน นอกจากนี้ยังสนใจในวิชาคณิตศาสตร์เป็นพิเศษ เพราะช่วยฝึกการคิดอย่างมีเหตุผล การวิเคราะห์ และการแก้ปัญหาอย่างเป็นระบบ
+                </p>
+            </div>
+
+            <div class="content-block">
+                <h3>รูปภาพเอกสารและกิจกรรมจริง (Original Files)</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="image_04f265.jpg" alt="หน้าปก">
+                        <p>หน้าปก Portfolio</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="image_79a77b.jpg" alt="เหตุผลที่อยากเข้าศึกษาต่อ">
+                        <p>เหตุผลที่อยากเข้าศึกษาต่อ</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="image_ee270d.jpg" alt="ประวัติส่วนตัว">
+                        <p>ประวัติส่วนตัว & ประสบการณ์</p>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="image_08747d.jpg" alt="กิจกรรมด้านจิตอาสา">
+                        <p>กิจกรรมด้านจิตอาสา คุณธรรม จริยธรรม</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; Portfolio Website | โรงเรียนทุ่งใหญ่เฉลิมราชอนุสรณ์ รัชมังคลาภิเษก</p>
+    </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("portfolio-section");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
